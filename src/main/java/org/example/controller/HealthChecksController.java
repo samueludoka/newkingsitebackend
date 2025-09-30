@@ -7,8 +7,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class HealthChecksController {
     @GetMapping("/health")
     public String healthCheck() {
-        return "Up and Running";
+        return "Your Api Is Up and Running.......";
     }
+    
 }
+
 
 
