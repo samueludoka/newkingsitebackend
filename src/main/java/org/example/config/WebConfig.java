@@ -6,12 +6,23 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 public class WebConfig implements WebMvcConfigurer {
+
     @Override
     public void addCorsMappings(CorsRegistry registry) {
-        registry.addMapping("/**")  // Allow all endpoints (e.g., /api/v1/customer/*)
-                .allowedOrigins("https://nextcents.com", "http://localhost:3000")  // Allow your frontend domains
-                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")  // Allowed HTTP methods
-                .allowedHeaders("*")  // Allow all headers (e.g., Content-Type, Authorization)
-                .allowCredentials(true);  // Allow cookies/auth headers if needed
+        registry.addMapping("/**")
+                // ✅ Allowed domains: production + local dev
+                .allowedOrigins(
+                        "https://nextcents.com",
+                        "https://www.nextcents.com",
+                        "http://localhost:3000"
+                )
+                // ✅ Allowed HTTP methods
+                .allowedMethods("GET", "POST", "PUT", "DELETE", "OPTIONS")
+                // ✅ Allow all headers (Authorization, Content-Type, etc.)
+                .allowedHeaders("*")
+                // ✅ Allow cookies/auth headers
+                .allowCredentials(true)
+                // ✅ Optional: Cache preflight response for 1 hour
+                .maxAge(3600);
     }
 }
